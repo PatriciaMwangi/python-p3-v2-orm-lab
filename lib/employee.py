@@ -56,7 +56,9 @@ class Employee:
         else:
             raise ValueError(
                 "department_id must reference a department in the database")
-
+    @classmethod
+    def get(cls,employee_id):
+        return cls.all.get(employee_id)
     @classmethod
     def create_table(cls):
         """ Create a new table to persist the attributes of Employee instances """
@@ -187,4 +189,5 @@ class Employee:
 
     def reviews(self):
         """Return list of reviews associated with current employee"""
-        pass
+        from review import Review
+        return [review for review in Review.all.values() if review.employee_id==self.id]
